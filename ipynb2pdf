@@ -1,0 +1,30 @@
+from os import system, listdir
+from shutil import move
+from os import mkdir, getcwd
+from fnmatch import fnmatch
+import os 
+
+cwd = os.getcwd()
+
+def jup2pdf():
+	
+	for path, subdirs, files in os.walk(cwd):
+		mkdir(str(path) + "/pdf_files")
+		for name in files:
+			os.chdir(path)
+			if fnmatch(name, "*.ipynb"):
+				system("jupyter-nbconvert --to PDFviaHTML " + name)
+				name_pdf = '.'.join([name[: -6], 'pdf'])
+				move(name_pdf, "pdf_files", ) 
+
+	print('Todos os arquivos Jupyter foram convertidos para PDF')
+
+jup2pdf()
+
+#os.getcwd(path)
+#if f.endswith("ipynb"):
+#
+#os.getcwd(subdirs)
+#os.chdir(path)
+#os.chdir(os.path.dirname(path))
+				#system("jupyter-nbconvert --to PDFviaHTML " + name) 
